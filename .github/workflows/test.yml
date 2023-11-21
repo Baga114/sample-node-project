@@ -24,17 +24,17 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Publish to Azure DevOps
-      run: |
-        az login --service-principal -u ${{ secrets.AZURE_SP_APP_ID }} -p ${{ secrets.AZURE_SP_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-        az devops configure --defaults organization=https://dev.azure.com/YOUR_ORG/ project=YOUR_PROJECT
-        az devops project show --output table
-        az devops artifact universal publish --organization=https://dev.azure.com/YOUR_ORG/ --project=YOUR_PROJECT --scope project --feed YOUR_FEED --name "your-package-name" --version $(npm view . version) --description "Your package description" --path ./dist
+    # - name: Publish to Azure DevOps
+    #   run: |
+    #     az login --service-principal -u ${{ secrets.AZURE_SP_APP_ID }} -p ${{ secrets.AZURE_SP_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+    #     az devops configure --defaults organization=https://dev.azure.com/YOUR_ORG/ project=YOUR_PROJECT
+    #     az devops project show --output table
+    #     az devops artifact universal publish --organization=https://dev.azure.com/YOUR_ORG/ --project=YOUR_PROJECT --scope project --feed YOUR_FEED --name "your-package-name" --version $(npm view . version) --description "Your package description" --path ./dist
 
-      env:
-        NODE_VERSION: '14'
-        AZURE_SP_APP_ID: ${{ secrets.AZURE_SP_APP_ID }}
-        AZURE_SP_PASSWORD: ${{ secrets.AZURE_SP_PASSWORD }}
-        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    #   env:
+    #     NODE_VERSION: '14'
+    #     AZURE_SP_APP_ID: ${{ secrets.AZURE_SP_APP_ID }}
+    #     AZURE_SP_PASSWORD: ${{ secrets.AZURE_SP_PASSWORD }}
+    #     AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
   # Add more jobs, steps, and configurations as needed.
