@@ -15,8 +15,3 @@
   }
 }
 
-"scripts": {
-  "start": "node index.js",  // Replace with your actual start script
-  "build": "npm run build",  // Add the build script
-  // Other scripts...
-}
