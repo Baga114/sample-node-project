@@ -6,12 +6,12 @@ phases:
   pre_build:
       commands:
         # Docker Image Tag with Date Time & Code Buiild Resolved Source Version
-        - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      #  - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         # Update Image tag in our Kubernetes Deployment Manifest
         - pwd 
         - ls -al
         - echo "Update Image tag in kube-manifest..."
-        - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' kube-manifests/01-DEVOPS-Nginx-Deployment.yml
+        - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:latest"'@' kube-manifests/01-DEVOPS-Nginx-Deployment.yml
         # Verify AWS CLI Version        
         - echo "Verify AWS CLI Version..."
         - aws --version
@@ -27,13 +27,13 @@ phases:
       # Build Docker Image
       - echo "Build started on `date`"
       - echo "Building the Docker image..."
-      - docker build --tag $REPOSITORY_URI:$TAG .
+      - docker build --tag $REPOSITORY_URI:latest .
   post_build:
     commands:
       # Push Docker Image to ECR Repository
       - echo "Build completed on `date`"
       - echo "Pushing the Docker image to ECR Repository"
-      - docker push $REPOSITORY_URI:$TAG
+      - docker push $REPOSITORY_URI:latest
       - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$TAG"    
       # Extracting AWS Credential Information using STS Assume Role for kubectl
       - echo "Setting Environment Variables related to AWS CLI for Kube Config Setup"          
@@ -50,7 +50,7 @@ phases:
       - kubectl apply -f kube-manifests/
      # - echo "Completed applying changes to Kubernetes Objects"           
       # Create Artifacts which we can use if we want to continue our pipeline for other stages
-      - printf '[{"name":"01-DEVOPS-Nginx-Deployment.yml","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > build.json
+      - printf '[{"name":"01-DEVOPS-Nginx-Deployment.yml","imageUri":"%s"}]' $REPOSITORY_URI:latest > build.json
       # Additional Commands to view your credentials      
       #- echo "Credentials Value is..  ${CREDENTIALS}"      
       #- echo "AWS_ACCESS_KEY_ID...  ${AWS_ACCESS_KEY_ID}"            
