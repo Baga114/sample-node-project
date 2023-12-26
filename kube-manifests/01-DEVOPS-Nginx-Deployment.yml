@@ -18,7 +18,7 @@ spec:
       - name: test
         image: 400926585409.dkr.ecr.us-east-1.amazonaws.com/k8s_registory11:latest # Replace with your image details
         ports:
-        - containerPort: 3005
+        - containerPort: 3006
 ---
 apiVersion: v1
 kind: Service
@@ -31,5 +31,5 @@ spec:
     - protocol: TCP
       port: 80
       nodePort: 31000
-      targetPort: 3005
+      targetPort: 3006
   type: NodePort
