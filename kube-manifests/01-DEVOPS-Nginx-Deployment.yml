@@ -30,6 +30,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      nodePort: 31000
-      targetPort: 3006
-  type: NodePort
+      targetPort: 3006  # Make sure this matches the port your app listens on
+  type: LoadBalancer
