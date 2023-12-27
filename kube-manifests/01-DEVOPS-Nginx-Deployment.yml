@@ -16,7 +16,7 @@ spec:
       # - name: testing  # Name of the secret you created
       containers:
       - name: test
-        image: 400926585409.dkr.ecr.us-east-1.amazonaws.com/k8s_registory11:latest # Replace with your image details
+        image: 242236232945.dkr.ecr.ca-central-1.amazonaws.com/regcodepipeline2512:latest
         ports:
         - containerPort: 3006
 ---
