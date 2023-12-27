@@ -47,6 +47,7 @@ phases:
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
       # Apply changes to our Application using kubectl
       - kubectl get nodes
+      - kubectl get svc
       - kubectl apply -f kube-manifests/
      # - echo "Completed applying changes to Kubernetes Objects"           
       # Create Artifacts which we can use if we want to continue our pipeline for other stages
@@ -58,7 +59,7 @@ phases:
       #- echo "AWS_SESSION_TOKEN...  ${AWS_SESSION_TOKEN}"            
       #- echo "AWS_EXPIRATION...  $AWS_EXPIRATION"             
       #- echo "EKS_CLUSTER_NAME...  $EKS_CLUSTER_NAME"    
-       - kubectl get svc         
+           
 # # artifacts:
 # #   files: 
 # #     - build.json   
