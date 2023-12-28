@@ -31,4 +31,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3006  # Make sure this matches the port your app listens on
-  type: LoadBalancer
+  type: ClusterIP
