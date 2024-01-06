@@ -32,13 +32,13 @@ phases:
     commands:
       - echo "Build started on `date`"
       - echo "Building the Docker image..."
-      - docker build --tag $REPOSITORY_URI:latest .
+      - docker build --tag $REPOSITORY_URI:$(Build.BuildId) .
 
   post_build:
     commands:
       - echo "Build completed on `date`"
       - echo "Pushing the Docker image..."
-      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$(Build.BuildId)
       - echo "Setting AWS CLI environment variables"
       - export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
       - export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
@@ -47,9 +47,7 @@ phases:
       - aws sts assume-role --role-arn arn:aws:iam::242236232945:role/EksCodeBuildKubectlRole --role-session-name codebuild-service-role --duration-seconds 900
       - echo "Update Kube Config"
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-      - kubectl get nodes
-      - kubectl get svc
       - kubectl apply -f kube-manifests/
-      - printf '[{"name":"01-DEVOPS-Nginx-Deployment.yml","imageUri":"%s"}]' $REPOSITORY_URI:latest > build.json
+      - printf '[{"name":"01-DEVOPS-Nginx-Deployment.yml","imageUri":"%s"}]' $REPOSITORY_URI:$(Build.BuildId) > build.json
 
-# (Rest of the file, if any)
+
