@@ -16,7 +16,7 @@ spec:
       # - name: testing  # Name of the secret you created
       containers:
       - name: test
-        image: 242236232945.dkr.ecr.ca-central-1.amazonaws.com/regcodepipeline2512:$(Build.BuildId)
+        image: 242236232945.dkr.ecr.ca-central-1.amazonaws.com/regcodepipeline2512:$CODEBUILD_BUILD_ID
         ports:
         - containerPort: 3006
 ---
