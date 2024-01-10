@@ -20,7 +20,7 @@ phases:
       - if [ "$CODEBUILD_BUILD_SUCCEEDING" -eq 0 ]; then exit 1; fi
       - echo "Update Image tag in kube-manifest..."
       - DOCKER_TAG=$(date +%Y%m%d%H%M%S)
-      #- sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:latest"'@' kube-manifests/01-DEVOPS-Nginx-Deployment.yml
+      - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$DOCKER_TAG"'@' kube-manifests/01-DEVOPS-Nginx-Deployment.yml
       - echo "Login in to Amazon ECR..."
       - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 242236232945.dkr.ecr.ca-central-1.amazonaws.com
       - export KUBECONFIG=$HOME/.kube/config
