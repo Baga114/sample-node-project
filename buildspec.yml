@@ -8,10 +8,11 @@ phases:
       - apt-get update && apt-get install -y jq
       - wget -qO /tmp/sonar-scanner.zip "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip"
       - unzip -q /tmp/sonar-scanner.zip -d /tmp
-      - npm install -g snyk
 
   pre_build:
     commands:
+      - npm install -g snyk
+      - snyk auth $SNYK_TOKEN
       - snyk test
       - snyk monitor --org=1226e436-a544-4db3-8eaf-6177bd464474 
       - echo "Start SonarQube code scan..."
