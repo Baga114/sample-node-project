@@ -1,17 +1,17 @@
 {
   "name": "sample-node-project",
   "version": "1.0.0",
-#  "description": "Sample Node.js Project",
-#  "main": "app.js",
-#  "scripts": {
-#    "start": "node app.js",
-#    "test": "mocha" 
+  "description": "Sample Node.js Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha" 
   },
   "author": "Adem Cemil YALCIN",
   "license": "ISC",
- # "dependencies": {
+  "dependencies": {
     "express": "4.17.1",
-#    "ejs": "latest"
+    "ejs": "latest"
   }
 }
 
